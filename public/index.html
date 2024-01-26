@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <!-- Inclure les fichiers Bootstrap MDB en utilisant CDN) -->
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- MDB JS -->
+    <script
+      defer
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+    ></script>
+
+    <!-- js -->
+
+    <script defer type="text/javascript" src="scripts.js"></script>
+
+    <title>Mini-app-NodeJS</title>
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <!-- Ajout  clients et affichage des clientes -->
+      <div class="row">
+        <h2 class="bg-body text-center" id="titre-app">Bienvenu sur le Mini-projet SQL Server et Node JS</h2>
+        <!-- <div class="col-md-3"></div> -->
+        <div class="col-md-3">
+          <h4 class="text-center">Ajouter un(e) client(e)</h4>
+          <!-- Formulaire d'ajout de client -->
+          <form id="addClientForm" action="/addClient" method="POST">
+            <div class="mb-3 mt-3">
+              <label for="clientName" class="form-label">Nom</label>
+              <input
+                type="text"
+                class="form-control"
+                id="clientName"
+                name="clientName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="clientName" class="form-label">Adresse</label>
+              <input
+                type="text"
+                class="form-control"
+                id="clientAdr"
+                name="clientAdr"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="clientVille" class="form-label">Ville</label>
+              <input
+                type="text"
+                class="form-control"
+                id="clientVille"
+                name="clientVille"
+                required
+              />
+            </div>
+
+            <button id="btnAjouter" type="button" class="btn btn-primary mb-5 fw-bold">
+              Ajouter Client
+            </button>
+          </form>
+        </div>
+
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+          <!-- formulaire de recherch par nom -->
+          <form class="d-flex input-group w-auto">
+            <input
+              type="search"
+              class="form-control rounded"
+              placeholder="Rechercher un(e) client(e) par son nom"
+              aria-label="Search"
+              aria-describedby="search-addon"
+              id="rechererClient"
+            />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="fas fa-search"></i>
+            </span>
+          </form>
+
+          <!-- Tableau du resulatat de la de recherch par nom -->
+          <h4 class="text-center mt-4">Résultat de la recherche du client</h4>
+          <table class="table mt-3">
+            <thead>
+              <tr>
+                <th>Nom du client</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="clientTableBody2">
+              <!-- Contenu du tableau généré dynamiquement ici -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br />
+      <h3 class="text-center">Liste des Clients</h3>
+      
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <!-- Entêtes de colonnes ici -->
+            <th>Nom du client</th>
+            <th>Adresse</th>
+            <th>Ville</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="clientTableBody">
+          <!-- Contenu du tableau généré dynamiquement ici -->
+        </tbody>
+      </table>
+      <br />
+      <hr />
+       <!-- Ajout  et affichage des categorie et Pieces detachées -->
+      <div class="row">
+        <!-- Formulaire d'ajout de catégorie -->
+        <div class="col-md-6 mt-5">
+          <h3>Ajouter des catégoris</h3>
+          <!-- Formulaire d'ajout de catégorie -->
+          <form id="addCategorieForm" action="/addCategorie" method="POST">
+            <div class="mb-3 mt-4">
+              <label for="categorieLib" class="form-label">Libellé</label>
+              <input
+                type="text"
+                class="form-control"
+                id="categorieLib"
+                name="categorieLib"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="categorieTarif" class="form-label">Tarif MO</label>
+              <input
+                type="number"
+                class="form-control"
+                id="categorieTarif"
+                name="categorieTarif"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <button
+              id="btnAjouterCategorie"
+              type="button"
+              class="btn btn-primary mb-5 fw-bold"
+            >
+              Ajouter Catégorie
+            </button>
+          </form>
+
+          <!-- Tableau d'affichage des catégories -->
+          <h3 class="text-center" >Liste des Catégories</h3>
+          <table class="table mt-3">
+            <thead>
+              <tr>
+                <th>Libellé</th>
+                <th>Tarif MO</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="categorieTableBody">
+              <!-- Contenu du tableau généré dynamiquement ici -->
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <!-- Formulaire d'ajout de pièce -->
+        <div class="col-md-6 mt-5">
+          <h3 class="text-center">Ajouter des Pièces Détachées</h3>
+          <!-- Formulaire d'ajout de pièce détachée -->
+          <form id="addPieceForm" action="/addPiece" method="POST">
+            <div class="mb-3 mt-4">
+              <label for="pieceDesc" class="form-label">Description</label>
+              <input
+                type="text"
+                class="form-control"
+                id="pieceDesc"
+                name="pieceDesc"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="piecePrix" class="form-label">Prix Unitaire HT</label>
+              <input
+                type="number"
+                class="form-control"
+                id="piecePrix"
+                name="piecePrix"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <button
+              id="btnAjouterPiece"
+              type="button"
+              class="btn btn-primary mb-5 fw-bold"
+            >
+              Ajouter Pièce
+            </button>
+          </form>
+
+          <!-- Tableau d'affichage des pièces détachées -->
+          <h3 class="text-center">Liste des Pièces Détachées</h3>
+          <table class="table mt-3">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Prix Unitaire HT</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pieceTableBody">
+              <!-- Contenu du tableau généré dynamiquement ici -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br />
+       <!-- Ajout et affichage d'ordre de réparation -->
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Formulaire d'ajout d'ordre de réparation -->
+          <h5 class="mt-5">Ajout d'ordre de réparation</h5>
+          <form id="addOrderForm" action="/addOrder" method="POST">
+            <div class="mb-3 mt-4">
+              <label for="diagnosticPanne" class="form-label"
+                >Diagnostic de la Panne</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="diagnosticPanne"
+                name="diagnosticPanne"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="nbHeuresMO" class="form-label"
+                >Nombre d'heures de main d'œuvre</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="nbHeuresMO"
+                name="nbHeuresMO"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="NomClient" class="form-label">Nom du client </label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="NomClient"
+                name="NomClient"
+                required
+              >
+                <!-- Options seront ajoutées dynamiquement par le script côté client  class="form-control"-->
+              </select>
+            </div>
+            <button
+              id="btnAjouterOrder"
+              type="button"
+              class="btn btn-primary mb-5"
+            >
+              Ajouter
+            </button>
+          </form>
+        </div>
+        <div class="col-md-9">
+          <!-- Section pour afficher les ordres de réparation -->
+          <div class="mt-5">
+            <h4 class="text-center">Ordres de Réparation</h4>
+            <table class="table mt-3">
+              <thead>
+                <tr>
+                  <th>Diagnostic de la Panne</th>
+                  <th>Nombre d'heures de main d'œuvre</th>
+                  <th>ID de l'Appareil associé au client</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="orderTableBody">
+                <!-- Contenu du tableau généré dynamiquement ici -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- <div class="col-md-"></div> -->
+      </div>
+      <!-- afficher les pièces dont le prix hors taxes est
+       supérieur à un prix donné. -->     
+      <div class="row">
+        <div class="col-md-4">
+          <!-- Formulaire pour filtrer les pièces par PUHT -->
+          <div class="mt-4">
+            <h5>Les pièces par PUHT</h5>
+            <form class="">
+              <div class="mb-3">
+                <label for="puhtThreshold" class="form-label"
+                  >Seuil PUHT :</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="puhtThreshold"
+                  placeholder="Entrez le seuil PUHT"
+                  required
+                />
+              </div>
+              <button
+                id="btnAfficherPieceSuperPUHT"
+                type="button"
+                class="btn btn-primary fw-bold mb-5"
+              >
+                Afficher
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-8 mt-4">
+          <!-- Tableau d'affichage des pièces détachées -->
+          <h3>Liste des Pièces</h3>
+          <table class="table mt-3">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Prix Unitaire HT</th>
+              </tr>
+            </thead>
+            <tbody id="pieceSuperPUHTTableBody">
+              <!-- Contenu du tableau généré dynamiquement ici -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ORDRE DE REPARATION Q = 0 -->
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div>
+            <!-- Bouton pour afficher les ordres de réparation sans pièces à changer -->
+            <button
+              id="btnAfficherOrdresSansPieces"
+              class="btn btn-primary fw-bolder mt-5"
+            >
+              Afficher les réparations sans pièces à changer
+            </button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-11">
+            <!-- Tableau pour afficher les ordres de réparation sans pièces à changer -->
+            <div class="mt-4">
+              <h4 class="text-center">Ordres de Réparation</h4>
+              <table class="table mt-3">
+                <thead>
+                  <tr>
+                    <th>Diagnostic de la Panne</th>
+                    <th>Nombre d'heures de main d'œuvre</th>
+                    <th>ID de l'Appareil associé au client</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orderTableBody2"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-0"></div>
+
+        <!-- Facture client -->
+
+        <!-- Fin Facture -->
+
+      <!-- Fin Container -->
+    </div>
+
+    <!-- Fenêtre modale pour l'édition des tables -->
+    <div
+      class="modal fade"
+      id="editclientModal"
+      tabindex="-1"
+      aria-labelledby="editclientModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="editclientModalLabel">
+              Modifications information du client(e)
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="editclientName" class="form-label">Nom</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editclientName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editclientAdr" class="form-label">Adresse</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editclientAdr"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editclientVille" class="form-label">Ville</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editclientVille"
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="fermer"
+            >
+              Fermer
+            </button>
+            <button type="button" class="btn btn-primary" id="saveEditButton">
+              Enregistrer les modifications
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS (Popper.js and jQuery are required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

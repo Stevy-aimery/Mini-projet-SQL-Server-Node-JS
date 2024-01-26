@@ -1,0 +1,12 @@
+/* Ajoutez vos styles ici */
+
+body{
+    /* background-color: rgb(179, 238, 218); */
+    /* background-color: rgb(241, 247, 245); */
+    background-color: rgb(227, 252, 244);
+}
+
+#titre-app{
+    border:3px solid aquamarine;
+    margin-bottom: 5rem;
+}
